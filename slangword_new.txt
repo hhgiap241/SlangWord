@@ -1464,6 +1464,7 @@ CVV`Card Verification Value
 CW`Clockwise| Continuous Wave
 CWB`Crazy White Boys
 CWD`Comment When Done| Cringe, Wither, Die| Chronic Wasting Disease| Chicks With Dicks
+CWD`Comment When Done| Cringe, Wither, Die| Chronic Wasting Disease| Chicks With Dicks
 CWOT`Complete Waste Of Time
 CWT`Hundred Weight, 100lbs
 CWTCH`Hug or cuddle
