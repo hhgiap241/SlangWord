@@ -75,9 +75,10 @@ public class SlangWord {
     public void readFile(String filename){
         try {
             BufferedReader br = new BufferedReader(new FileReader(filename));
+            String line = br.readLine(); // skip the first line
             while (true){
-                String line = br.readLine();
-                if (line != null){
+                line = br.readLine();
+                if (line != null ){
                     this.addLineToDictionary(line);
                 }else{
                     break;
@@ -122,15 +123,17 @@ public class SlangWord {
         ArrayList<HashSet<String>> valuesList = new ArrayList<>();
         for (int i = 0; i < tokenizer.length; i++){
             valuesList.add(this.reverseDictionary.get(tokenizer[i]));
-            if (i > 0){
+            if (i > 0 && valuesList.get(i - 1) != null && valuesList.get(i) != null){
                 valuesList.get(i).retainAll(valuesList.get(i - 1));
             }
         }
         HashSet<String> keys = valuesList.get(valuesList.size() - 1);
+        if (keys == null)
+            return null;
         String[][] meanings = new String[keys.size()][3];
         Integer index = 0;
 
-       for (String key : keys) {
+        for (String key : keys) {
             meanings[index][0] = String.valueOf(index + 1);
             meanings[index][1] = key;
             HashSet<String> values = this.dictionary.get(key);
@@ -148,7 +151,7 @@ public class SlangWord {
             }
             index++;
         }
-        this.saveToHistory(meanings);
+//        this.saveToHistory(meanings);
         return meanings;
     }
 
@@ -158,7 +161,7 @@ public class SlangWord {
      */
     public void saveToHistory(String[][] data){
         try {
-            FileWriter fileWriter = new FileWriter(FILE_HISTORY);
+            FileWriter fileWriter = new FileWriter(FILE_HISTORY, true);
             for (int i = 0; i < data.length; i++){
                 String line = data[i][1] + "`" + data[i][2];
                 fileWriter.write(line + "\n");
@@ -168,33 +171,166 @@ public class SlangWord {
             e.printStackTrace();
         }
     }
-    public void readFromFile(){
-        try {
-            ObjectInputStream objectInputStream = new ObjectInputStream(
-                                                        new FileInputStream("slag.txt"));
-            this.dictionary = (HashMap<String, HashSet<String>>) objectInputStream.readObject();
-            objectInputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+
     public void saveToFile(){
         try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(
-                                                        new BufferedOutputStream(
-                                                                new FileOutputStream("slag.txt")));
-            objectOutputStream.writeObject(this.dictionary);
-            objectOutputStream.close();
+            FileWriter fileWriter = new FileWriter(FILE_NEW_SLANGWORD);
+            fileWriter.write("Slag`Meaning" + "\n");
+            for (Map.Entry<String, HashSet<String>> entry : this.dictionary.entrySet()) {
+                String line = entry.getKey() + "`";
+                HashSet<String> meanings = entry.getValue();
+                Iterator iterator = meanings.iterator();
+                while (iterator.hasNext()){
+                    line += iterator.next();
+                    if (iterator.hasNext())
+                        line += "|";
+                }
+                fileWriter.write(line + "\n");
+            }
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
+
+    /**
+     * add a slang word with multiple meanings (new slang word that doesn't exist before)
+     * @param slag String
+     * @param meanings String
+     */
     public void addNewSlangWord(String slag, String meanings){
         String line = slag + "`" + meanings;
         this.addLineToDictionary(line);
         this.saveToFile();
+    }
+
+    /**
+     * add list of word to the reverse hashmap
+     * @param token String[]
+     * @param slag String
+     */
+    public void addTokenToReverseDictionary(String[] token, String slag){
+        for (int j = 0; j < token.length; j++){
+            if (!this.reverseDictionary.containsKey(token[j].toLowerCase())){
+                this.reverseDictionary.put(token[j].toLowerCase(), new HashSet<>());
+            }
+            this.reverseDictionary.get(token[j].toLowerCase()).add(slag);
+        }
+    }
+    /**
+     * add a slang word with multiple meanings (overwrite)
+     * @param slag String
+     * @param meanings String
+     */
+    public void addOverwriteSlangWord(String slag, String meanings){
+        HashSet<String> values = this.dictionary.get(slag);
+        String[] partOfWords = meanings.split("\\|");
+        for (String value: values){
+            String[] token = value.toLowerCase().split("\\W");
+            for (int i = 0; i < token.length; i++)
+                this.reverseDictionary.get(token[i]).remove(slag);
+        }
+        values.clear();
+        for (int i = 0; i < partOfWords.length; i++){
+            values.add(partOfWords[i]);
+            String[] token = partOfWords[i].split("\\W");
+            this.addTokenToReverseDictionary(token, slag);
+//            for (int j = 0; j < token.length; j++){
+//                if (!this.reverseDictionary.containsKey(token[j].toLowerCase())){
+//                    this.reverseDictionary.put(token[j].toLowerCase(), new HashSet<>());
+//                }
+//                this.reverseDictionary.get(token[j].toLowerCase()).add(slag);
+//            }
+        }
+        this.dictionary.put(slag, values);
+        this.saveToFile();
+    }
+
+    /**
+     * add a slang word with multiple meanings (duplicate)
+     * @param slag String
+     * @param meanings String
+     */
+    public void addDuplicateSlangWord(String slag, String meanings){
+        HashSet<String> values = this.dictionary.get(slag);
+        String[] partOfWords = meanings.split("\\|");
+        for (int i = 0; i < partOfWords.length; i++){
+            values.add(partOfWords[i]);
+            String[] token = partOfWords[i].split("\\W");
+            this.addTokenToReverseDictionary(token, slag);
+//            for (int j = 0; j < token.length; j++){
+//                if (!this.reverseDictionary.containsKey(token[j].toLowerCase())){
+//                    this.reverseDictionary.put(token[j].toLowerCase(), new HashSet<>());
+//                }
+//                this.reverseDictionary.get(token[j].toLowerCase()).add(slag);
+//            }
+        }
+        this.dictionary.put(slag, values);
+        this.saveToFile();
+    }
+
+    /**
+     * edit a slag word
+     * @param slag String
+     * @param oldMeaning String
+     * @param newMeaning String
+     */
+    public void editSlangWord(String slag, String oldMeaning, String newMeaning){
+        String [] old_token = oldMeaning.toLowerCase().split("\\W");
+        for (int i = 0; i < old_token.length; i++){
+            this.reverseDictionary.get(old_token[i]).remove(slag);
+        }
+        this.dictionary.get(slag).remove(oldMeaning);
+        this.dictionary.get(slag).add(newMeaning);
+        String [] new_token = newMeaning.toLowerCase().split("\\W");
+        this.addTokenToReverseDictionary(new_token, slag);
+        this.saveToFile();
+    }
+
+    /**
+     * delete a meaning from slang word
+     * @param slag String
+     * @param meaning String
+     */
+    public void deleteASlangWord(String slag, String meaning){
+        String [] old_token = meaning.toLowerCase().split("\\W");
+        for (int i = 0; i < old_token.length; i++){
+            this.reverseDictionary.get(old_token[i]).remove(slag);
+        }
+        HashSet<String> meanings = this.dictionary.get(slag);
+        if (meanings.size() == 1) // if the slag has only one meaning => delete it
+            this.dictionary.remove(slag);
+        else{ // delete the meaning only
+            meanings.remove(meaning);
+            this.dictionary.put(slag, meanings);
+        }
+        this.saveToFile();
+    }
+
+    /**
+     * reset the dictionary to the original
+     */
+    public void reset(){
+        this.readFile(FILE_ORIGINAL_SLANGWORD);
+        this.saveToFile();
+    }
+
+    /**
+     * randomly get a slang word
+     * @param number int
+     * @return String[]
+     */
+    public String[] randomSlangWord(int number){
+        String [] result = new String[2];
+        ArrayList<String> keys = new ArrayList<>(this.dictionary.keySet());
+        result[0] = keys.get(number);
+        HashSet<String> values = this.dictionary.get(result[0]);
+        for (String value: values){
+            result[1] = value;
+            break;
+        }
+        return result;
     }
     /**
      * print all the word in hashmap
@@ -202,7 +338,7 @@ public class SlangWord {
     public void output(){
         System.out.println(this.dictionary);
         System.out.println("========================================");
-//        System.out.println(this.reverseDictionary);
+        System.out.println(this.reverseDictionary);
     }
 
     /**
@@ -240,5 +376,13 @@ public class SlangWord {
      */
     public HashMap<String, HashSet<String>> getReverseDictionary() {
         return reverseDictionary;
+    }
+
+    /**
+     * get size of the dictionary
+     * @return integer
+     */
+    public int getSize(){
+        return this.dictionary.size();
     }
 }
