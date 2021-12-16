@@ -120,6 +120,8 @@ public class SlangWord {
      */
     public String[][] findByDefinition(String definition) {
         String[] tokenizer = definition.trim().toLowerCase().split("\\W");
+        if (tokenizer.length == 0)
+            return null;
         ArrayList<HashSet<String>> valuesList = new ArrayList<>();
         for (int i = 0; i < tokenizer.length; i++){
             valuesList.add(this.reverseDictionary.get(tokenizer[i]));
@@ -317,6 +319,20 @@ public class SlangWord {
     }
 
     /**
+     * get the first meaning of the slag
+     * @param slag String
+     * @return String
+     */
+    public String getFirstMeaning(String slag){
+        String meaning = "";
+        HashSet<String> values = this.dictionary.get(slag);
+        for (String value: values){
+            meaning = value;
+            break;
+        }
+        return meaning;
+    }
+    /**
      * randomly get a slang word
      * @param number int
      * @return String[]
@@ -325,11 +341,42 @@ public class SlangWord {
         String [] result = new String[2];
         ArrayList<String> keys = new ArrayList<>(this.dictionary.keySet());
         result[0] = keys.get(number);
-        HashSet<String> values = this.dictionary.get(result[0]);
-        for (String value: values){
-            result[1] = value;
-            break;
-        }
+        result[1] = this.getFirstMeaning(result[0]);
+        return result;
+    }
+
+    /**
+     * create random quiz with slang word
+     * @param number int
+     * @return String[]
+     */
+    public String[] quizWithSlangWord(int number){
+        String [] result = new String[5];
+        ArrayList<String> keys = new ArrayList<>(this.dictionary.keySet());
+        result[0] = keys.get(number);
+        // generate answers
+        result[1] = this.getFirstMeaning(result[0]);
+        result[2] = this.getFirstMeaning(keys.get(number - 1));
+        result[3] = this.getFirstMeaning(keys.get(number + 1));
+        result[4] = this.getFirstMeaning(keys.get(number + 2));
+        return result;
+    }
+
+    /**
+     * create random quiz with the definition
+     * @param number int
+     * @return String[]
+     */
+    public String[] quizWithDefinition(int number){
+        String [] result = new String[5];
+        ArrayList<String> keys = new ArrayList<>(this.dictionary.keySet());
+        String key =  keys.get(number);
+        // generate answers
+        result[0] = this.getFirstMeaning(key);
+        result[1] = key;
+        result[2] = keys.get(number - 1);
+        result[3] = keys.get(number + 1);
+        result[4] = keys.get(number + 2);
         return result;
     }
     /**
