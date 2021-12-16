@@ -57,6 +57,8 @@ public class Buttons extends JPanel {
 
         gbc.gridy = 6;
         resetButton = new JButton("Reset to default");
+        resetButton.setForeground(Color.white);
+        resetButton.setBackground(Color.red);
         buttonPanel.add(resetButton, gbc);
 
         gbc.gridy = 7;
@@ -79,6 +81,10 @@ public class Buttons extends JPanel {
 
     public JButton getQuizButton() {
         return quizButton;
+    }
+
+    public JButton getMyInfoButton() {
+        return myInfoButton;
     }
 
     public JButton getResetButton() {

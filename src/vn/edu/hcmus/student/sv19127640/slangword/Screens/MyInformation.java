@@ -10,8 +10,9 @@ import java.awt.*;
  * Description: ...
  */
 public class MyInformation {
-    MyInformation(){
-        JPanel info = new JPanel(new GridBagLayout());
+    private JPanel infoPanel;
+    public MyInformation(){
+        infoPanel = new JPanel(new GridBagLayout());
         JLabel overview = new JLabel("My student information", SwingConstants.CENTER);
         overview.setFont(overview.getFont().deriveFont (50.0f));
         overview.setForeground(Color.blue);
@@ -27,13 +28,13 @@ public class MyInformation {
         gbc.insets = new Insets(10,10,10,10);
         gbc.gridx = 0;
         gbc.gridy = 1;
-        info.add(id, gbc);
+        infoPanel.add(id, gbc);
         gbc.gridy = 2;
-        info.add(name, gbc);
+        infoPanel.add(name, gbc);
         gbc.gridy = 3;
-        info.add(classs, gbc);
+        infoPanel.add(classs, gbc);
         gbc.gridy = 4;
-        info.add(lecturers, gbc);
+        infoPanel.add(lecturers, gbc);
         JLabel id_1 = new JLabel("19127640");
         id_1.setFont(id_1.getFont().deriveFont (26.0f));
         JLabel name_1 = new JLabel("Hoàng Hữu Giáp");
@@ -46,21 +47,24 @@ public class MyInformation {
         lecturers_2.setFont(lecturers_2.getFont().deriveFont (26.0f));
         gbc.gridy = 1;
         gbc.gridx = 1;
-        info.add(id_1, gbc);
+        infoPanel.add(id_1, gbc);
         gbc.gridy = 2;
-        info.add(name_1, gbc);
+        infoPanel.add(name_1, gbc);
         gbc.gridy = 3;
-        info.add(classs_1, gbc);
+        infoPanel.add(classs_1, gbc);
         gbc.gridy = 4;
-        info.add(lecturers_1, gbc);
+        infoPanel.add(lecturers_1, gbc);
         gbc.gridy = 5;
-        info.add(lecturers_2, gbc);
-
+        infoPanel.add(lecturers_2, gbc);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        info.add(overview, gbc);
-        info.setBorder(BorderFactory.createLineBorder(Color.black));
+        infoPanel.add(overview, gbc);
+        infoPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+    }
+
+    public JPanel getInfoPanel() {
+        return infoPanel;
     }
 }
