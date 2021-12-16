@@ -1,9 +1,6 @@
 package vn.edu.hcmus.student.sv19127640.slangword;
 
-import vn.edu.hcmus.student.sv19127640.slangword.Screens.AddSlangWord;
-import vn.edu.hcmus.student.sv19127640.slangword.Screens.History;
-import vn.edu.hcmus.student.sv19127640.slangword.Screens.MyInformation;
-import vn.edu.hcmus.student.sv19127640.slangword.Screens.SearchWord;
+import vn.edu.hcmus.student.sv19127640.slangword.Screens.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +14,9 @@ import java.awt.event.ActionListener;
  * Description: main frame for the java app
  */
 public class MainFrame extends JPanel{
+    private SlangWord slangWord;
     MainFrame(){
+        slangWord = new SlangWord();
         setUpGUI();
     }
     public void showGUI(){
@@ -25,7 +24,7 @@ public class MainFrame extends JPanel{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setOpaque(true);
         frame.setContentPane(this);
-        frame.setMinimumSize(new Dimension(800, 500));
+        frame.setMinimumSize(new Dimension(1000, 500));
         frame.setVisible(true);
     }
     private void setUpGUI(){
@@ -45,7 +44,7 @@ public class MainFrame extends JPanel{
         SearchWord searchWord = new SearchWord();
         AddSlangWord addSlangWord = new AddSlangWord();
         History history = new History();
-
+        RandomWord randomWord = new RandomWord();
 
 
         CardLayout cardLayout = new CardLayout();
@@ -57,18 +56,21 @@ public class MainFrame extends JPanel{
         hidePanelField.add(searchWord.getSearchPanel());
         hidePanelField.add(addSlangWord.getAddPanel());
         hidePanelField.add(history.getHistoryPanel());
+        JPanel randomWordPanel = randomWord.setUPPanel(slangWord);
+        hidePanelField.add(randomWordPanel);
 
 //        // assign value
         hidePanelField.add(myInformation.getInfoPanel(), "link#1");
         hidePanelField.add(searchWord.getSearchPanel(), "link#2");
         hidePanelField.add(addSlangWord.getAddPanel(), "link#3");
         hidePanelField.add(history.getHistoryPanel(), "link#4");
-//        // change panel when click specified button
+        hidePanelField.add(randomWordPanel, "link#5");
+        // change panel when click specified button
         leftButtons.getMyInfoButton().addActionListener(e -> cardLayout.show(hidePanelField, "link#1"));
         leftButtons.getSearchButton().addActionListener(e -> cardLayout.show(hidePanelField, "link#2"));
         leftButtons.getAddButton().addActionListener(e -> cardLayout.show(hidePanelField, "link#3"));
         leftButtons.getHistoryButton().addActionListener(e -> cardLayout.show(hidePanelField, "link#4"));
-
+        leftButtons.getRandomWordButton().addActionListener(e->cardLayout.show(hidePanelField, "link#5"));
 
 
         leftButtons.getExitBtn().addActionListener(new ActionListener() {
@@ -76,7 +78,7 @@ public class MainFrame extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 int select = JOptionPane.showConfirmDialog(JOptionPane.getRootFrame(), "Do you really want to close program?", "Confirm",
                         JOptionPane.YES_NO_OPTION);
-                if (select == 0)
+                if (select == 0) // if yes
                     System.exit(1);
             }
         });

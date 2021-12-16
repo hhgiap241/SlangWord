@@ -337,12 +337,14 @@ public class SlangWord {
      * @param number int
      * @return String[]
      */
-    public String[] randomSlangWord(int number){
-        String [] result = new String[2];
+    public ArrayList randomSlangWord(int number){
+        HashSet<String> result = new HashSet<>();
         ArrayList<String> keys = new ArrayList<>(this.dictionary.keySet());
-        result[0] = keys.get(number);
-        result[1] = this.getFirstMeaning(result[0]);
-        return result;
+        String key = keys.get(number);
+        result = this.dictionary.get(key);
+        ArrayList<String> values = new ArrayList<>(result);
+        values.add(key);
+        return values;
     }
 
     /**
@@ -378,6 +380,21 @@ public class SlangWord {
         result[3] = keys.get(number + 1);
         result[4] = keys.get(number + 2);
         return result;
+    }
+
+    /**
+     * concate the meanings of one slang word
+     * @param result ArrayList
+     * @return String
+     */
+    public String concateMeanings(ArrayList<String> result) {
+        String meanings = "";
+        for (int i = 0; i < result.size() - 2; i++){
+            meanings += result.get(i);
+            meanings += " - ";
+        }
+        meanings += result.get(result.size() - 2);
+        return meanings;
     }
     /**
      * print all the word in hashmap
