@@ -87,6 +87,7 @@ public class QuizWithSlangWord implements ActionListener{
         answerPanel.add(answer, gbc);
 
         nextButton.setText("Next");
+        nextButton.setEnabled(false);
         nextButton.addActionListener(this);
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.PAGE_AXIS));
@@ -114,6 +115,7 @@ public class QuizWithSlangWord implements ActionListener{
                 answerB.setEnabled(false);
                 answerC.setEnabled(false);
                 answerD.setEnabled(false);
+                nextButton.setEnabled(true);
                 JOptionPane.showMessageDialog(null, "Correct");
             }else{
                 answerA.setBackground(Color.red);
@@ -125,6 +127,7 @@ public class QuizWithSlangWord implements ActionListener{
                 answerA.setEnabled(false);
                 answerC.setEnabled(false);
                 answerD.setEnabled(false);
+                nextButton.setEnabled(true);
                 JOptionPane.showMessageDialog(null, "Correct");
             }else{
                 answerB.setBackground(Color.red);
@@ -136,6 +139,7 @@ public class QuizWithSlangWord implements ActionListener{
                 answerA.setEnabled(false);
                 answerB.setEnabled(false);
                 answerD.setEnabled(false);
+                nextButton.setEnabled(true);
                 JOptionPane.showMessageDialog(null, "Correct");
             }else{
                 answerC.setBackground(Color.red);
@@ -147,6 +151,7 @@ public class QuizWithSlangWord implements ActionListener{
                 answerA.setEnabled(false);
                 answerB.setEnabled(false);
                 answerC.setEnabled(false);
+                nextButton.setEnabled(true);
                 JOptionPane.showMessageDialog(null, "Correct");
             }else{
                 answerD.setBackground(Color.red);
@@ -189,6 +194,7 @@ public class QuizWithSlangWord implements ActionListener{
                 answerC.setText(quiz[4]);
                 answerD.setText(quiz[1]);
             }
+            nextButton.setEnabled(false);
         }
     }
 }

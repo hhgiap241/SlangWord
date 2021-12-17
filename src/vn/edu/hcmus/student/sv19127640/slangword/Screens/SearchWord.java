@@ -1,10 +1,14 @@
 package vn.edu.hcmus.student.sv19127640.slangword.Screens;
 
+import vn.edu.hcmus.student.sv19127640.slangword.SlangWord;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 /**
@@ -13,14 +17,9 @@ import java.util.Vector;
  * Date 12/15/2021 - 8:50 PM
  * Description: ...
  */
-public class SearchWord {
-    private JPanel searchPanel;
-
-    public JPanel getSearchPanel() {
-        return searchPanel;
-    }
-
+public class SearchWord extends MouseAdapter implements ActionListener{
     // attribute
+    private JPanel searchPanel;
     private JPanel findPanel;
     private JPanel tablePanel;
     private JPanel headerPanel;
@@ -31,29 +30,51 @@ public class SearchWord {
     private DefaultTableModel model;
     private JScrollPane scrollPane;
     private JLabel header;
+    private JRadioButton radioButton1;
+    private JRadioButton radioButton2;
+    private ButtonGroup buttonGroup;
+    private JPopupMenu popupMenu;
+    private JMenuItem menuItemDelete;
+    private SlangWord slangWord;
+    private String[][] result;
 
-
-    public SearchWord(){
-        searchPanel = new JPanel(new BorderLayout());
+    public SearchWord(SlangWord slangWord){
+        this.slangWord = slangWord;
+        searchPanel = new JPanel();
         findPanel = new JPanel();
         tablePanel = new JPanel();
-        headerPanel = new JPanel(new GridBagLayout());
+        headerPanel = new JPanel();
+        findBtn = new JButton();
+        findText = new JTextField(30);
+        findLable = new JLabel();
         table = new JTable();
         model = new DefaultTableModel();
+        scrollPane = new JScrollPane();
+        radioButton1 = new JRadioButton();
+        radioButton2 = new JRadioButton();
+        buttonGroup = new ButtonGroup();
+        popupMenu = new JPopupMenu();
+        menuItemDelete = new JMenuItem();
+        result = null;
+    }
+
+    public JPanel setUPPanel(){
+        searchPanel.setLayout(new BorderLayout());
+        headerPanel.setLayout(new GridBagLayout());
 
         findPanel.setLayout(new BoxLayout(findPanel, BoxLayout.LINE_AXIS));
-        findLable = new JLabel("Input slang word: ");
-        findText = new JTextField(30);
-        findBtn = new JButton("Find");
+        findLable.setText("Input slang word: ");
+        findBtn.setText("Find");
+        findBtn.addActionListener(this);
         findPanel.add(findLable);
         findPanel.add(findText);
         findPanel.add(Box.createRigidArea(new Dimension(15,0)));
         findPanel.add(findBtn);
 
-        JRadioButton radioButton1 = new JRadioButton("Search by Slang word");
-        JRadioButton radioButton2 = new JRadioButton("Search by definition");
+        radioButton1.setText("Search by Slang word");
+        radioButton2.setText("Search by definition");
         radioButton1.setSelected(true);
-        ButtonGroup buttonGroup = new ButtonGroup();
+        // use button group in order to make every time user can only choose one radio button
         buttonGroup.add(radioButton1);
         buttonGroup.add(radioButton2);
 
@@ -79,53 +100,67 @@ public class SearchWord {
         header.setForeground(Color.blue);
         tablePanel.add(header, BorderLayout.PAGE_START);
 
-        String[] columns = {"Slang Word", "Meaning"};
+        String[] columns = {"NO.", "Slang Word", "Meaning"};
         model.setColumnIdentifiers(columns);
-//        String[] item={"A","B"};
-//        model.addRow(item);
-//        model.addRow(item);
         table.setModel(model);
+        table.getColumnModel().getColumn(0).setPreferredWidth(100);
+        table.getColumnModel().getColumn(1).setPreferredWidth(400);
+        table.getColumnModel().getColumn(2).setPreferredWidth(500);
 
-        scrollPane = new JScrollPane(table,  JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        menuItemDelete.setText("Delete");
+        menuItemDelete.addActionListener(this);
+        popupMenu.add(menuItemDelete);
+        table.setComponentPopupMenu(popupMenu);
+        table.addMouseListener(this);
+
+        scrollPane.getViewport().add(table,  JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         tablePanel.add(scrollPane, BorderLayout.CENTER);
 
 
         searchPanel.add(headerPanel, BorderLayout.PAGE_START);
         searchPanel.add(tablePanel, BorderLayout.CENTER);
-    }
-    public JPanel getFindPanel() {
-        return findPanel;
+        return searchPanel;
     }
 
-    public JButton getFindBtn() {
-        return findBtn;
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == findBtn){
+            String input = findText.getText();
+            if (input.length() == 0){
+                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "The input field can't be empty!!!");
+            }else{
+                model.setRowCount(0);
+                if(radioButton1.isSelected()){
+                    result = slangWord.findBySlangWord(input);
+                }else if(radioButton2.isSelected()){
+                    result = slangWord.findByDefinition(input);
+                }
+                if (result != null){
+                    for (int i = 0; i < result.length; i++){
+                        model.addRow(result[i]);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Can't find anything!!!");
+                }
+            }
+        }else if(e.getSource() == menuItemDelete){
+            int rowIndex = table.getSelectedRow();
+            slangWord.deleteASlangWord(result[rowIndex][1], result[rowIndex][2]);
+            model.removeRow(rowIndex);
+            slangWord.saveToFile();
+        }
     }
 
-    public JTextField getFindText() {
-        return findText;
-    }
-
-    public JLabel getFindLable() {
-        return findLable;
-    }
-
-    public JTable getTable() {
-        return table;
-    }
-
-    public DefaultTableModel getModel() {
-        return model;
-    }
-
-    public JPanel getTablePanel() {
-        return tablePanel;
-    }
-
-    public JScrollPane getScrollPane() {
-        return scrollPane;
-    }
-
-    public JLabel getHeader() {
-        return header;
+    /**
+     * Reference at: https://www.codejava.net/java-se/swing/jtable-popup-menu-example
+     * Making a row selected when the popup menu is displayed
+     * @param event MouseEvent
+     */
+    @Override
+    public void mousePressed(MouseEvent event) {
+        // selects the row at which point the mouse is clicked
+        Point point = event.getPoint();
+        int currentRow = table.rowAtPoint(point);
+        table.setRowSelectionInterval(currentRow, currentRow);
     }
 }

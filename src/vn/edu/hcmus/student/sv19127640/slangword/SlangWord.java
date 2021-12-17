@@ -307,7 +307,7 @@ public class SlangWord {
             meanings.remove(meaning);
             this.dictionary.put(slag, meanings);
         }
-        this.saveToFile();
+//        this.saveToFile();
     }
 
     /**

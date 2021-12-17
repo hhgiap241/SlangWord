@@ -5068,7 +5068,6 @@ LUL`Lame Uncomfortable Laugh
 MISSION`Arduous or boring task
 SNAG`Sausage|Sensitive New Age Guy
 NOSA`No Sir, just kidding
-LUV`Love
 SNAP`surprise|dismay
 LUX`Luxury
 AINT`are not|Am not|is not

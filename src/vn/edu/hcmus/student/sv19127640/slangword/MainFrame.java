@@ -41,13 +41,19 @@ public class MainFrame extends JPanel{
         contentPanel.add(new JTextArea(5,20), BorderLayout.CENTER);
 
         MyInformation myInformation = new MyInformation();
-        SearchWord searchWord = new SearchWord();
+        SearchWord searchWord = new SearchWord(slangWord);
+        JPanel searchPanel = searchWord.setUPPanel();
+
         AddSlangWord addSlangWord = new AddSlangWord();
+
         History history = new History();
+
         RandomWord randomWord = new RandomWord();
         JPanel randomWordPanel = randomWord.setUPPanel(slangWord);
+
         QuizWithSlangWord quizWithSlangWord = new QuizWithSlangWord(slangWord);
         JPanel quizWithSlangWordPanel = quizWithSlangWord.setUPPanel();
+
         QuizWithDefinition quizWithDefinition = new QuizWithDefinition(slangWord);
         JPanel quizWithDefinitionPanel = quizWithDefinition.setUPPanel();
 
@@ -57,7 +63,7 @@ public class MainFrame extends JPanel{
         JPanel hidePanelField = new JPanel();
         hidePanelField.setLayout(cardLayout);
         hidePanelField.add(myInformation.getInfoPanel());
-        hidePanelField.add(searchWord.getSearchPanel());
+        hidePanelField.add(searchPanel);
         hidePanelField.add(addSlangWord.getAddPanel());
         hidePanelField.add(history.getHistoryPanel());
         hidePanelField.add(randomWordPanel);
@@ -66,7 +72,7 @@ public class MainFrame extends JPanel{
 
 //        // assign value
         hidePanelField.add(myInformation.getInfoPanel(), "link#1");
-        hidePanelField.add(searchWord.getSearchPanel(), "link#2");
+        hidePanelField.add(searchPanel, "link#2");
         hidePanelField.add(addSlangWord.getAddPanel(), "link#3");
         hidePanelField.add(history.getHistoryPanel(), "link#4");
         hidePanelField.add(randomWordPanel, "link#5");
