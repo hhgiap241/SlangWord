@@ -15,7 +15,7 @@ public class Buttons extends JPanel {
     private JButton myInfoButton;
     private JButton addButton;
     private JButton searchButton;
-    private JButton quizButton;
+    private JButton quizButton1, quizButton2;
     private JButton resetButton;
     private JButton historyButton;
     private JButton randomWordButton;
@@ -52,16 +52,20 @@ public class Buttons extends JPanel {
         buttonPanel.add(randomWordButton, gbc);
 
         gbc.gridy = 5;
-        quizButton = new JButton("Quiz");
-        buttonPanel.add(quizButton, gbc);
+        quizButton1 = new JButton("Quiz with slang word");
+        buttonPanel.add(quizButton1, gbc);
 
         gbc.gridy = 6;
+        quizButton2 = new JButton("Quiz with definition");
+        buttonPanel.add(quizButton2, gbc);
+
+        gbc.gridy = 7;
         resetButton = new JButton("Reset to default");
         resetButton.setForeground(Color.white);
         resetButton.setBackground(Color.red);
         buttonPanel.add(resetButton, gbc);
 
-        gbc.gridy = 7;
+        gbc.gridy = 8;
         exitBtn = new JButton("Exit");
         buttonPanel.add(exitBtn, gbc);
 
@@ -79,8 +83,12 @@ public class Buttons extends JPanel {
         return searchButton;
     }
 
-    public JButton getQuizButton() {
-        return quizButton;
+    public JButton getQuizButton1() {
+        return quizButton1;
+    }
+
+    public JButton getQuizButton2() {
+        return quizButton2;
     }
 
     public JButton getMyInfoButton() {

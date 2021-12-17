@@ -22,7 +22,7 @@ public class SlangWord {
     /**
      * default constructor
      */
-    SlangWord(){
+    public SlangWord(){
         this.dictionary = new HashMap<>();
         this.reverseDictionary = new HashMap<>();
 //        this.readFromFile();
@@ -362,6 +362,15 @@ public class SlangWord {
         result[3] = this.getFirstMeaning(keys.get(number + 1));
         result[4] = this.getFirstMeaning(keys.get(number + 2));
         return result;
+    }
+    public String[] randomAnswer(String[] result){
+        String[] newResult = new String[5];
+        newResult[0] = result[0];
+        // random number from [1; 4]
+        int randNum = (int) (Math.random() * (4 - 1 + 1)) + 1;
+
+
+        return newResult;
     }
 
     /**

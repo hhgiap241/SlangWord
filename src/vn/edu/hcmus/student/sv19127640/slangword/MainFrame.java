@@ -45,7 +45,11 @@ public class MainFrame extends JPanel{
         AddSlangWord addSlangWord = new AddSlangWord();
         History history = new History();
         RandomWord randomWord = new RandomWord();
-
+        JPanel randomWordPanel = randomWord.setUPPanel(slangWord);
+        QuizWithSlangWord quizWithSlangWord = new QuizWithSlangWord(slangWord);
+        JPanel quizWithSlangWordPanel = quizWithSlangWord.setUPPanel();
+        QuizWithDefinition quizWithDefinition = new QuizWithDefinition(slangWord);
+        JPanel quizWithDefinitionPanel = quizWithDefinition.setUPPanel();
 
         CardLayout cardLayout = new CardLayout();
         cardLayout.setHgap(10);
@@ -56,8 +60,9 @@ public class MainFrame extends JPanel{
         hidePanelField.add(searchWord.getSearchPanel());
         hidePanelField.add(addSlangWord.getAddPanel());
         hidePanelField.add(history.getHistoryPanel());
-        JPanel randomWordPanel = randomWord.setUPPanel(slangWord);
         hidePanelField.add(randomWordPanel);
+        hidePanelField.add(quizWithSlangWordPanel);
+        hidePanelField.add(quizWithDefinitionPanel);
 
 //        // assign value
         hidePanelField.add(myInformation.getInfoPanel(), "link#1");
@@ -65,13 +70,17 @@ public class MainFrame extends JPanel{
         hidePanelField.add(addSlangWord.getAddPanel(), "link#3");
         hidePanelField.add(history.getHistoryPanel(), "link#4");
         hidePanelField.add(randomWordPanel, "link#5");
+        hidePanelField.add(quizWithSlangWordPanel, "link#6");
+        hidePanelField.add(quizWithDefinitionPanel, "link#7");
+
         // change panel when click specified button
         leftButtons.getMyInfoButton().addActionListener(e -> cardLayout.show(hidePanelField, "link#1"));
         leftButtons.getSearchButton().addActionListener(e -> cardLayout.show(hidePanelField, "link#2"));
         leftButtons.getAddButton().addActionListener(e -> cardLayout.show(hidePanelField, "link#3"));
         leftButtons.getHistoryButton().addActionListener(e -> cardLayout.show(hidePanelField, "link#4"));
         leftButtons.getRandomWordButton().addActionListener(e->cardLayout.show(hidePanelField, "link#5"));
-
+        leftButtons.getQuizButton1().addActionListener(e->cardLayout.show(hidePanelField, "link#6"));
+        leftButtons.getQuizButton2().addActionListener(e->cardLayout.show(hidePanelField, "link#7"));
 
         leftButtons.getExitBtn().addActionListener(new ActionListener() {
             @Override
