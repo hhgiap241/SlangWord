@@ -1,5 +1,7 @@
 package vn.edu.hcmus.student.sv19127640.slangword;
 
+import vn.edu.hcmus.student.sv19127640.slangword.Screens.RandomWord;
+
 import java.io.*;
 import java.util.*;
 
@@ -42,6 +44,7 @@ public class SlangWord {
      */
     public void addLineToDictionary(String line){
         String word[] = line.split("`");
+        word[0] = word[0].trim();
         this.dictionary.put(word[0], new HashSet<>());
         if (word[1].contains("|")){
             String[] partOfWord = word[1].split("\\|");
@@ -197,6 +200,16 @@ public class SlangWord {
     }
 
     /**
+     * check if the slag is exist or not
+     * @param slag String
+     * @return boolean
+     */
+    public boolean isExistedSlag(String slag){
+        if (this.dictionary.containsKey(slag))
+            return true;
+        return false;
+    }
+    /**
      * add a slang word with multiple meanings (new slang word that doesn't exist before)
      * @param slag String
      * @param meanings String
@@ -236,15 +249,10 @@ public class SlangWord {
         }
         values.clear();
         for (int i = 0; i < partOfWords.length; i++){
+            partOfWords[i] = partOfWords[i].trim();
             values.add(partOfWords[i]);
             String[] token = partOfWords[i].split("\\W");
             this.addTokenToReverseDictionary(token, slag);
-//            for (int j = 0; j < token.length; j++){
-//                if (!this.reverseDictionary.containsKey(token[j].toLowerCase())){
-//                    this.reverseDictionary.put(token[j].toLowerCase(), new HashSet<>());
-//                }
-//                this.reverseDictionary.get(token[j].toLowerCase()).add(slag);
-//            }
         }
         this.dictionary.put(slag, values);
         this.saveToFile();
@@ -259,15 +267,10 @@ public class SlangWord {
         HashSet<String> values = this.dictionary.get(slag);
         String[] partOfWords = meanings.split("\\|");
         for (int i = 0; i < partOfWords.length; i++){
+            partOfWords[i] = partOfWords[i].trim();
             values.add(partOfWords[i]);
             String[] token = partOfWords[i].split("\\W");
             this.addTokenToReverseDictionary(token, slag);
-//            for (int j = 0; j < token.length; j++){
-//                if (!this.reverseDictionary.containsKey(token[j].toLowerCase())){
-//                    this.reverseDictionary.put(token[j].toLowerCase(), new HashSet<>());
-//                }
-//                this.reverseDictionary.get(token[j].toLowerCase()).add(slag);
-//            }
         }
         this.dictionary.put(slag, values);
         this.saveToFile();
@@ -289,7 +292,6 @@ public class SlangWord {
         this.dictionary.get(slag).add(newMeaning);
         String [] new_token = newMeaning.toLowerCase().split("\\W");
         this.addTokenToReverseDictionary(new_token, slag);
-//        this.saveToFile();
     }
 
     /**
@@ -310,13 +312,13 @@ public class SlangWord {
             meanings.remove(meaning);
             this.dictionary.put(slag, meanings);
         }
-//        this.saveToFile();
     }
 
     /**
      * reset the dictionary to the original
      */
     public void reset(){
+        this.dictionary.clear();
         this.readFile(FILE_ORIGINAL_SLANGWORD);
         this.saveToFile();
     }
@@ -335,6 +337,8 @@ public class SlangWord {
         }
         return meaning;
     }
+
+
     /**
      * randomly get a slang word
      * @param number int

@@ -217,7 +217,6 @@ TCP/IP`Transmission Control Protocol/Internet Protocol
 SLT`Salut|hello
 T-T`Crying
 SLY`Still Love You
- HK`Hong Kong|Hostile Kids
 SME`Small/Medium Enterprises
 SMG`Sub-Machine Gun
 SMH`Shaking My Head
@@ -304,7 +303,6 @@ BOO`Boyfriend/Girlfriend
 NVNG`Nothing Ventured, Nothing Gained
 BOT`Back On Topic
 BOS`Boyfriend Over Shoulder
-MBFAM `My Brother From Another Mother
 T2M`Talk To Me
 SQL`Structured Query Language
 CANDYMAN`Drug Dealer
@@ -429,7 +427,6 @@ SWF`Single White Female
 YERP`Yes|what's up|ok
 SWK`Star Wars Kid
 SWM`Single White Male
-BW `Beautiful Woman|Black and White
 APPS`Applications (software)
 HYPER`Over energetic
 NICKER`Pound|quid
@@ -681,6 +678,7 @@ THN`Then
 CGA`Color Graphics Adapter
 IH8U`I Hate You
 HDTV`High Definition Television
+THT`That
 CGI`Computer-Generated Imagery
 SUSS`Suspicious|understand|Discover
 THX`Thanks
@@ -852,7 +850,6 @@ G'DAY`Good Day, hello
 TPB`The Pirate Bay
 TPE`Total Power Exchange
 ROFTL`ROTFL
-SWAGG `coolness|confidence|Style
 NWOT`New Without Tags (eBay)
 2MI`Too Much Information
 TPK`Total Party Kill
@@ -1259,7 +1256,6 @@ DEF`excellent|Cool|great
 GSOH`Good Sense Of Humor
 BDAY`Birthday
 DEH`DOH
-THT `That
 HASIAN`Hot Asian
 MUAH`The sound of giving a kiss
 DEN`Private room|Then
@@ -1359,6 +1355,7 @@ BT`BitTorrent|British Telecom
 BU`Backup
 DHV`Demonstration of Higher Value
 BV`Bad Vibe
+BW`Beautiful Woman|Black and White
 C:`Very happy
 BUEY`similar to DUDE
 FIZZLE`Fool
@@ -1551,6 +1548,7 @@ DNE`Do Not Erase|Does Not Exist
 HB`Hurry Back
 DND`Do Not Disturb
 HC`Holy Cow
+HD`High-Definition
 HEYY`Hey You
 DNF`Did Not Finish
 HF`Have Fun
@@ -1559,6 +1557,7 @@ DNK`Do Not Know
 HH`Holding Hands
 HI`Hello
 DNM`Does Not Matter|Deep and Meaningful
+HK`Hong Kong|Hostile Kids
 DNO`Don't Know
 HL`Half Life (game)
 HM`Thinking
@@ -2150,6 +2149,7 @@ VCD`Video Compact Disc
 GULLY`unpolished|raw|Rough
 WAWA`Convenience store
 FRILL`For Real
+SWND`Sound
 ALCHY`Alcoholic
 SFLR`Sorry For Late Reply
 CHAW`Chewing tobacco
@@ -2421,7 +2421,6 @@ ETF`Escape The Fate (band)
 NYSE`New York Stock Exchange
 JUICE`Respect|power
 JONESING`Craving|wanting really badly
-MW2 `Modern Warfare 2 (game)
 ETW`Enjoy The Weekend
 NHTB`Never Heard That Before
 VVN`Very Very Nice
@@ -2567,6 +2566,7 @@ ASDFGHJKL`Boredom|Excitement|Frustration
 FAM`Family
 FAO`For Attention Of
 FAQ`Frequently Asked Question
+WCB`Will Call Back
 FAT`File Allocation Table
 WCD`What you Doing?
 FAV`Favorite
@@ -2664,7 +2664,6 @@ WIP`Work In Progress
 WIR`When It's Ready
 FHE`First Hand Experience
 GUTI`Get Used To It
-WCB `Will Call Back
 WIT`With
 POMO`Permanent Open Market Operations|Post Modern|A Group Of Native American People In California
 WIV`With
@@ -3473,7 +3472,6 @@ HBY`How About You?
 YDI`You Deserve It
 YDL`Yellow Dog Linux
 YDK`You Don't Know
-HD `High-Definition
 TINAR`This Is Not A Recommendation
 DNDC`Don't Know, Don't Care
 YDS`You Don't Say
@@ -3519,7 +3517,6 @@ YGG`You Go Girl
 HEX`Hexadecimal|Curse
 YGI`You Got It
 HEY`Hello, hi
-ONG `OMG
 YGM`You Get Me?|You've Got Mail
 OMFSM`Oh My Flying Spaghetti Monster
 HF?`Have Fun
@@ -4184,7 +4181,6 @@ BITD`Back In The Day
 IWY`I Want You
 MIRL`Meet In Real Life
 BISS`Because I Said So
-SWND `Sound
 RACKS`Money
 AFRL`Away From Real Life
 STEEZ`Style with ease
@@ -4376,7 +4372,6 @@ YMMS`You Make Me Smile
 YMMV`Your Mileage May Vary
 PSTN`Public Switched Telephone Network
 YMML`You Make Me Laugh
-UBER `Ultimate|above|best
 ROGER THAT`I Understand, OK
 CMNT`Comment
 YGTBKM`You've Got To Be Kidding Me
@@ -4608,6 +4603,8 @@ KMU`Keep Me Updated
 KMT`Kiss My Teeth
 YALLAH`Let's Go
 IITUWUTMAS`If I Tell You Will You Tell Me A Secret?
+HUNNED`Hundred dollars
+SWAGG`coolness|confidence|Style
 BOOGER`Dried nose mucus
 KNP`OK, No Problem
 KNO`Know
@@ -4659,6 +4656,7 @@ LYMY`Love You, Miss You
 SMAD`Sad and mad
 TOUCH`rob|Beat|kill
 L4D`Left 4 Dead (game)
+UBER`Ultimate|above|best
 WWJBD`What Would Jason Bourne Do?
 UC&P`Up Close and Personal
 TWEAKING`SPUN
@@ -4757,6 +4755,7 @@ AYYO`Hi, hello
 CREEPER`Someone who views your profile but doesn't make contact
 USSR`Union of Soviet Socialist Republics
 PLONKER`Idiot
+MBFAM`My Brother From Another Mother
 DRAW`Cannabis
 LAA`mate|Lad
 YEHET`Yes In Sehun's Happy Mode
@@ -5261,6 +5260,7 @@ GET DOWN`Party|dance
 MGS`Metal Gear Solid (game)
 THANG`Thing
 .BIZ`Top level domain for business
+THANQ`Thank You
 <G>`Grin
 MHM`MHMM
 MHO`My Honest Opinion
@@ -5481,6 +5481,7 @@ DOSHA`Marijuana
 ^W^`Happy
 MVP`Most Valuable Player
 MW3`Modern Warfare 3 (game)
+MW2`Modern Warfare 2 (game)
 TAFF`Person from Cardiff or Wales generally
 HOOROO`Goodbye
 TAFN`That's All For Now
@@ -5773,7 +5774,7 @@ CHUNDER`Be sick|vomit
 JEAL`Jealous
 DCOI`Don't Count On It
 KYFC`Keep Your Fingers Crossed
->.<`Frustrated get buon|xin chao tam biet
+>.<`Frustrated|upset|angry|in pain
 >.>`Suspicious|wary
 CLUBHEAD`Person who goes to clubs a lot
 NO1`No-One
@@ -6127,6 +6128,7 @@ OMZ`Oh My Zeus
 MOJO`Sex appeal|spell|Charm
 ONE`One Love|goodbye
 HOOK ME UP`Share with me
+ONG`OMG
 ONL`Online
 .-.`unhappy|Sad
 ONM`Oh, Never Mind
@@ -6508,7 +6510,6 @@ BUTCH`Masculine
 TWEETER`Person who posts on Twitter
 AMAA`Ask Me Almost Anything
 LMAP`Leave Me Alone Please
- MCR`My Chemical Romance (band)
 T2UL`Talk To You Later
 GNSD`Good Night, Sweet Dreams
 PHP`Personal Home Page
@@ -6630,7 +6631,6 @@ IDBI`I Don't Believe It
 PRC`People's Republic of China
 PRI`Pretty
 DESI`Someone from the Indian subcontinent
-HUNNED `Hundred dollars
 ZERG`Defeat enemy by outnumbering rather than strategy or skill
 PS2`PlayStation 2
 IDBY`I Don't Believe You
@@ -6792,7 +6792,6 @@ SMIZE`Smile with your eyes
 DWBH`Don't Worry, Be Happy
 DWBI`Don't Worry 'Bout It
 IDNK`I Do Not Know
-THANQ `Thank You
 CHICK`Girl
 ?_?`lost|Confused
 @@@`Warning of parents nearby

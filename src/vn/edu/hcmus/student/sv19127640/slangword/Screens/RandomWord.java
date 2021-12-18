@@ -1,5 +1,6 @@
 package vn.edu.hcmus.student.sv19127640.slangword.Screens;
 
+import vn.edu.hcmus.student.sv19127640.slangword.RandomNumber;
 import vn.edu.hcmus.student.sv19127640.slangword.SlangWord;
 
 import javax.swing.*;
@@ -25,6 +26,7 @@ public class RandomWord {
     private JLabel description;
     private JButton nextBtn;
     private ArrayList<String> result;
+    private RandomNumber randomNumber;
 
     public RandomWord(){
         randomWordPanel = new JPanel();
@@ -35,6 +37,7 @@ public class RandomWord {
         description = new JLabel();
         nextBtn = new JButton();
         result = new ArrayList<>();
+        randomNumber = new RandomNumber();
     }
     public JPanel setUPPanel(SlangWord slangWord){
 
@@ -51,7 +54,7 @@ public class RandomWord {
 
         gbc.gridy = 0;
         gbc.gridx = 0;
-        int randNum = (int) (Math.random() * (slangWord.getSize() - 1));
+        int randNum = randomNumber.random(0, slangWord.getSize() - 1);
         result = slangWord.randomSlangWord(randNum);
         System.out.println(result);
         JPanel titlePanel = new JPanel(new FlowLayout());
@@ -93,7 +96,7 @@ public class RandomWord {
         nextBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int randNum = (int) (Math.random() * (slangWord.getSize() - 1));
+                int randNum = randomNumber.random(0, slangWord.getSize() - 1);
                 result = slangWord.randomSlangWord(randNum);
                 System.out.println(result);
                 int slagWordIndex = result.size() - 1;

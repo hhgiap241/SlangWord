@@ -1,5 +1,6 @@
 package vn.edu.hcmus.student.sv19127640.slangword.Screens;
 
+import vn.edu.hcmus.student.sv19127640.slangword.RandomNumber;
 import vn.edu.hcmus.student.sv19127640.slangword.SlangWord;
 
 import javax.swing.*;
@@ -18,9 +19,10 @@ public class QuizWithSlangWord implements ActionListener{
     private JLabel question, answer;
     private JButton answerA, answerB, answerC, answerD;
     private JButton nextButton;
-    private int quesNumber, randomNumber;
+    private int quesNumber, randomNum;
     private String[] quiz;
     private SlangWord slangWord;
+    private RandomNumber randomNumber;
 
 
     public QuizWithSlangWord(SlangWord slangWord){
@@ -34,6 +36,7 @@ public class QuizWithSlangWord implements ActionListener{
         answerD = new JButton();
         nextButton = new JButton();
         quesNumber = 1;
+        randomNumber = new RandomNumber();
     }
     public JPanel setUPPanel(){
         quizPanel1.setLayout(new BorderLayout());
@@ -42,8 +45,8 @@ public class QuizWithSlangWord implements ActionListener{
         header.setForeground(Color.blue);
 
         JPanel questionPanel = new JPanel(new BorderLayout());
-        randomNumber = (int) (Math.random() * (slangWord.getSize() - 1));
-        quiz = slangWord.quizWithSlangWord(randomNumber);
+        randomNum = randomNumber.random(1, slangWord.getSize() - 3);
+        quiz = slangWord.quizWithSlangWord(randomNum);
         for(String s: quiz){
             System.out.println(s);
         }
@@ -166,12 +169,12 @@ public class QuizWithSlangWord implements ActionListener{
             answerC.setBackground(null);
             answerD.setEnabled(true);
             answerD.setBackground(null);
-            randomNumber = (int) (Math.random() * (slangWord.getSize() - 2 + 1)) + 1;
-            quiz = slangWord.quizWithSlangWord(randomNumber);
+            randomNum = randomNumber.random(1, slangWord.getSize() - 3);
+            quiz = slangWord.quizWithSlangWord(randomNum);
             ++quesNumber;
             question.setText("Question " + quesNumber + " : " + "What is the definition of " + quiz[0] + "?");
             // generate number from [1; 4]
-            int randNum = (int) (Math.random() * (4 - 1 + 1)) + 1;
+            int randNum = randomNumber.random(1, 4);
             System.out.println(randNum);
             if (randNum == 1) {
                 answerA.setText(quiz[1]);

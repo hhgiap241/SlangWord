@@ -128,6 +128,7 @@ public class SearchWord extends MouseAdapter implements ActionListener, TableMod
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == findBtn){
+            table.getSelectionModel().clearSelection();
             String input = findText.getText();
             if (input.length() == 0){
                 JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "The input field can't be empty!!!");
@@ -138,21 +139,26 @@ public class SearchWord extends MouseAdapter implements ActionListener, TableMod
                 }else if(radioButton2.isSelected()){
                     result = slangWord.findByDefinition(input);
                 }
-                if (result != null){
+                if (result == null || result.length == 0){
+                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Can't find anything!!!");
+                }else{
                     for (int i = 0; i < result.length; i++){
                         model.addRow(result[i]);
                     }
-
-                }else{
-                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Can't find anything!!!");
                 }
             }
         }else if(e.getSource() == menuItemDelete){
             int rowIndex = table.getSelectedRow();
-            slangWord.deleteASlangWord(result[rowIndex][1], result[rowIndex][2]);
-            model.removeRow(rowIndex);
-            slangWord.saveToFile();
-            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Delete complete!!!");
+            table.getSelectionModel().clearSelection();
+            int select = JOptionPane.showConfirmDialog(JOptionPane.getRootFrame(), "Are you sure to delete this slang word?", "Confirm",
+                    JOptionPane.YES_NO_OPTION);
+            if (select == 0) // if yes
+            {
+                slangWord.deleteASlangWord(result[rowIndex][1], result[rowIndex][2]);
+                model.removeRow(rowIndex);
+                slangWord.saveToFile();
+                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Delete complete!!!");
+            }
         }
     }
 
@@ -179,7 +185,7 @@ public class SearchWord extends MouseAdapter implements ActionListener, TableMod
             slangWord.editSlangWord((String)model.getValueAt(rowIndex, 1), result[rowIndex][2], (String)model.getValueAt(rowIndex, 2));
             slangWord.saveToFile();
             JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Update complete!!!");
-            table.getSelectionModel().clearSelection();
+
         }
     }
 }

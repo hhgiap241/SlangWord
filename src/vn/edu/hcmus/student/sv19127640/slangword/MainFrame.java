@@ -44,7 +44,8 @@ public class MainFrame extends JPanel{
         SearchWord searchWord = new SearchWord(slangWord);
         JPanel searchPanel = searchWord.setUPPanel();
 
-        AddSlangWord addSlangWord = new AddSlangWord();
+        AddSlangWord addSlangWord = new AddSlangWord(slangWord);
+        JPanel addSlangWordPanel = addSlangWord.setUPGUI();
 
         History history = new History();
 
@@ -64,7 +65,7 @@ public class MainFrame extends JPanel{
         hidePanelField.setLayout(cardLayout);
         hidePanelField.add(myInformation.getInfoPanel());
         hidePanelField.add(searchPanel);
-        hidePanelField.add(addSlangWord.getAddPanel());
+        hidePanelField.add(addSlangWordPanel);
         hidePanelField.add(history.getHistoryPanel());
         hidePanelField.add(randomWordPanel);
         hidePanelField.add(quizWithSlangWordPanel);
@@ -73,7 +74,7 @@ public class MainFrame extends JPanel{
 //        // assign value
         hidePanelField.add(myInformation.getInfoPanel(), "link#1");
         hidePanelField.add(searchPanel, "link#2");
-        hidePanelField.add(addSlangWord.getAddPanel(), "link#3");
+        hidePanelField.add(addSlangWordPanel, "link#3");
         hidePanelField.add(history.getHistoryPanel(), "link#4");
         hidePanelField.add(randomWordPanel, "link#5");
         hidePanelField.add(quizWithSlangWordPanel, "link#6");
@@ -88,6 +89,20 @@ public class MainFrame extends JPanel{
         leftButtons.getQuizButton1().addActionListener(e->cardLayout.show(hidePanelField, "link#6"));
         leftButtons.getQuizButton2().addActionListener(e->cardLayout.show(hidePanelField, "link#7"));
 
+
+        leftButtons.getResetButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int select = JOptionPane.showConfirmDialog(JOptionPane.getRootFrame(), "Do you really want to reset this dictionary?", "Confirm",
+                        JOptionPane.YES_NO_OPTION);
+                if (select == 0) // if yes
+                {
+                    slangWord.reset();
+                    slangWord.saveToFile();
+                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Reset dictionary successfully!!!");
+                }
+            }
+        });
         leftButtons.getExitBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
