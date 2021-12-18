@@ -12,9 +12,12 @@ import java.awt.event.ActionListener;
  * vn.edu.hcmus.student.sv19127640.slangword.Screens
  * Created by ADMIN
  * Date 12/17/2021 - 8:58 PM
- * Description: ...
+ * Description: quiz with definition panel
  */
 public class QuizWithDefinition implements ActionListener {
+    /**
+     * attributes
+     */
     private JPanel quizPanel1;
     private JLabel question, answer;
     private JButton answerA, answerB, answerC, answerD;
@@ -24,7 +27,10 @@ public class QuizWithDefinition implements ActionListener {
     private SlangWord slangWord;
     private RandomNumber randomNumber;
 
-
+    /**
+     * constructor with parameter
+     * @param slangWord SlangWord
+     */
     public QuizWithDefinition(SlangWord slangWord){
         this.slangWord = slangWord;
         quizPanel1 = new JPanel();
@@ -38,6 +44,11 @@ public class QuizWithDefinition implements ActionListener {
         quesNumber = 1;
         randomNumber = new RandomNumber();
     }
+
+    /**
+     * set up panel
+     * @return JPanel
+     */
     public JPanel setUPPanel(){
         quizPanel1.setLayout(new BorderLayout());
         JLabel header = new JLabel("Quiz with Definition", SwingConstants.CENTER);
@@ -110,6 +121,10 @@ public class QuizWithDefinition implements ActionListener {
         return quizPanel1;
     }
 
+    /**
+     * button click handling
+     * @param e ActionEvent
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == answerA) {

@@ -1,6 +1,5 @@
 package vn.edu.hcmus.student.sv19127640.slangword;
 
-import vn.edu.hcmus.student.sv19127640.slangword.Screens.RandomWord;
 
 import java.io.*;
 import java.util.*;
@@ -27,7 +26,6 @@ public class SlangWord {
     public SlangWord(){
         this.dictionary = new HashMap<>();
         this.reverseDictionary = new HashMap<>();
-//        this.readFromFile();
         File f = new File(FILE_NEW_SLANGWORD);
         if(f.exists() && !f.isDirectory()) {
             // if exits new file => read new file to hashmap
@@ -88,6 +86,7 @@ public class SlangWord {
                 }
             }
             this.reverseDictionary.remove("");
+            br.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -113,7 +112,6 @@ public class SlangWord {
             meanings[index][2] = value;
             index++;
         }
-//        this.saveToHistory(meanings);
         return meanings;
     }
     /**
@@ -156,7 +154,6 @@ public class SlangWord {
             }
             index++;
         }
-//        this.saveToHistory(meanings);
         return meanings;
     }
 
@@ -177,6 +174,41 @@ public class SlangWord {
         }
     }
 
+    /**
+     * read data from history file
+     * @return Vector<Vector<String>>
+     */
+    public Vector<Vector<String>> readFromHistory(){
+        Vector<Vector<String>> values = new Vector<>();
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_HISTORY));
+            String line = null;
+            Integer index = 1;
+            while(true){
+                line = bufferedReader.readLine();
+                if (line != null){
+                    String[] token = line.split("`");
+                    Vector<String> data = new Vector<>();
+                    data.add(index.toString());
+                    data.add(token[0]);
+                    data.add(token[1]);
+                    index++;
+                    values.add(data);
+                }else
+                    break;
+            }
+            bufferedReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return values;
+    }
+
+    /**
+     * save dictionary to file
+     */
     public void saveToFile(){
         try {
             FileWriter fileWriter = new FileWriter(FILE_NEW_SLANGWORD);
@@ -370,15 +402,7 @@ public class SlangWord {
         result[4] = this.getFirstMeaning(keys.get(number + 2));
         return result;
     }
-    public String[] randomAnswer(String[] result){
-        String[] newResult = new String[5];
-        newResult[0] = result[0];
-        // random number from [1; 4]
-        int randNum = (int) (Math.random() * (4 - 1 + 1)) + 1;
 
-
-        return newResult;
-    }
 
     /**
      * create random quiz with the definition

@@ -47,10 +47,11 @@ public class MainFrame extends JPanel{
         AddSlangWord addSlangWord = new AddSlangWord(slangWord);
         JPanel addSlangWordPanel = addSlangWord.setUPGUI();
 
-        History history = new History();
+        History history = new History(slangWord);
+        JPanel historyPanel = history.setUPPanel();
 
-        RandomWord randomWord = new RandomWord();
-        JPanel randomWordPanel = randomWord.setUPPanel(slangWord);
+        RandomWord randomWord = new RandomWord(slangWord);
+        JPanel randomWordPanel = randomWord.setUPPanel();
 
         QuizWithSlangWord quizWithSlangWord = new QuizWithSlangWord(slangWord);
         JPanel quizWithSlangWordPanel = quizWithSlangWord.setUPPanel();
@@ -66,7 +67,7 @@ public class MainFrame extends JPanel{
         hidePanelField.add(myInformation.getInfoPanel());
         hidePanelField.add(searchPanel);
         hidePanelField.add(addSlangWordPanel);
-        hidePanelField.add(history.getHistoryPanel());
+        hidePanelField.add(historyPanel);
         hidePanelField.add(randomWordPanel);
         hidePanelField.add(quizWithSlangWordPanel);
         hidePanelField.add(quizWithDefinitionPanel);
@@ -75,7 +76,7 @@ public class MainFrame extends JPanel{
         hidePanelField.add(myInformation.getInfoPanel(), "link#1");
         hidePanelField.add(searchPanel, "link#2");
         hidePanelField.add(addSlangWordPanel, "link#3");
-        hidePanelField.add(history.getHistoryPanel(), "link#4");
+        hidePanelField.add(historyPanel, "link#4");
         hidePanelField.add(randomWordPanel, "link#5");
         hidePanelField.add(quizWithSlangWordPanel, "link#6");
         hidePanelField.add(quizWithDefinitionPanel, "link#7");

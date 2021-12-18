@@ -15,6 +15,9 @@ import java.awt.event.ActionListener;
  * Description: add slang word panel
  */
 public class AddSlangWord implements ActionListener {
+    /**
+     * attributes
+     */
     private JPanel addPanel;
     private JLabel header;
     private JPanel footerPanel;
@@ -27,7 +30,10 @@ public class AddSlangWord implements ActionListener {
     private JButton cancelButton;
     private SlangWord slangWord;
 
-
+    /**
+     * constructor with parameter
+     * @param slangWord SlangWord
+     */
     public AddSlangWord(SlangWord slangWord){
         this.slangWord = slangWord;
         addPanel = new JPanel();
@@ -40,6 +46,11 @@ public class AddSlangWord implements ActionListener {
         submitButton = new JButton("Submit");
         cancelButton = new JButton("Cancel");
     }
+
+    /**
+     * set up panel
+     * @return JPanel
+     */
     public JPanel setUPGUI(){
         addPanel.setLayout(new GridBagLayout());
         header = new JLabel("ADD NEW SLANG WORD", SwingConstants.CENTER);
@@ -86,6 +97,10 @@ public class AddSlangWord implements ActionListener {
         return addPanel;
     }
 
+    /**
+     * button click handling
+     * @param e ActionEvent
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton){

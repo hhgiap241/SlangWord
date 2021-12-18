@@ -15,6 +15,9 @@ import java.awt.event.ActionListener;
  * Description: quiz with slang word panel
  */
 public class QuizWithSlangWord implements ActionListener{
+    /**
+     * attributes
+     */
     private JPanel quizPanel1;
     private JLabel question, answer;
     private JButton answerA, answerB, answerC, answerD;
@@ -24,7 +27,10 @@ public class QuizWithSlangWord implements ActionListener{
     private SlangWord slangWord;
     private RandomNumber randomNumber;
 
-
+    /**
+     * constructor with parameter
+     * @param slangWord SlangWord
+     */
     public QuizWithSlangWord(SlangWord slangWord){
         this.slangWord = slangWord;
         quizPanel1 = new JPanel();
@@ -38,6 +44,11 @@ public class QuizWithSlangWord implements ActionListener{
         quesNumber = 1;
         randomNumber = new RandomNumber();
     }
+
+    /**
+     * set up panel
+     * @return JPanel
+     */
     public JPanel setUPPanel(){
         quizPanel1.setLayout(new BorderLayout());
         JLabel header = new JLabel("Quiz with Slang Word", SwingConstants.CENTER);
@@ -103,13 +114,15 @@ public class QuizWithSlangWord implements ActionListener{
         questionPanel.add(question, BorderLayout.PAGE_START);
         questionPanel.add(answerPanel, BorderLayout.CENTER);
         questionPanel.add(buttonPanel, BorderLayout.PAGE_END);
-
         quizPanel1.add(header, BorderLayout.PAGE_START);
         quizPanel1.add(questionPanel, BorderLayout.CENTER);
-
         return quizPanel1;
     }
 
+    /**
+     * button click handling
+     * @param e ActionEvent
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == answerA) {

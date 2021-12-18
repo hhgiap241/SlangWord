@@ -7,10 +7,17 @@ import java.awt.*;
  * vn.edu.hcmus.student.sv19127640.slangword.Screens
  * Created by ADMIN
  * Date 12/15/2021 - 9:58 PM
- * Description: ...
+ * Description: my information panel
  */
 public class MyInformation {
+    /**
+     * attribute
+     */
     private JPanel infoPanel;
+
+    /**
+     * default constructor
+     */
     public MyInformation(){
         infoPanel = new JPanel(new GridBagLayout());
         JLabel overview = new JLabel("My student information", SwingConstants.CENTER);

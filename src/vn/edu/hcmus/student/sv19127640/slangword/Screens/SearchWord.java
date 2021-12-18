@@ -11,16 +11,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Vector;
+
 
 /**
  * vn.edu.hcmus.student.sv19127640.slangword.Screens
  * Created by ADMIN
  * Date 12/15/2021 - 8:50 PM
- * Description: ...
+ * Description: search panel
  */
 public class SearchWord extends MouseAdapter implements ActionListener, TableModelListener {
-    // attribute
+    // attributes
     private JPanel searchPanel;
     private JPanel findPanel;
     private JPanel tablePanel;
@@ -40,6 +40,10 @@ public class SearchWord extends MouseAdapter implements ActionListener, TableMod
     private SlangWord slangWord;
     private String[][] result;
 
+    /**
+     * constructor with parameter
+     * @param slangWord SlangWord
+     */
     public SearchWord(SlangWord slangWord){
         this.slangWord = slangWord;
         searchPanel = new JPanel();
@@ -60,6 +64,10 @@ public class SearchWord extends MouseAdapter implements ActionListener, TableMod
         result = null;
     }
 
+    /**
+     * set up panel
+     * @return JPanel
+     */
     public JPanel setUPPanel(){
         searchPanel.setLayout(new BorderLayout());
         headerPanel.setLayout(new GridBagLayout());
@@ -125,6 +133,10 @@ public class SearchWord extends MouseAdapter implements ActionListener, TableMod
         return searchPanel;
     }
 
+    /**
+     * button click handling
+     * @param e ActionEvent
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == findBtn){
@@ -145,6 +157,7 @@ public class SearchWord extends MouseAdapter implements ActionListener, TableMod
                     for (int i = 0; i < result.length; i++){
                         model.addRow(result[i]);
                     }
+                    slangWord.saveToHistory(result);
                 }
             }
         }else if(e.getSource() == menuItemDelete){
@@ -175,6 +188,10 @@ public class SearchWord extends MouseAdapter implements ActionListener, TableMod
         table.setRowSelectionInterval(currentRow, currentRow);
     }
 
+    /**
+     * edit slang word in table
+     * @param e TableModelEvent
+     */
     @Override
     public void tableChanged(TableModelEvent e) {
         int rowIndex = table.getSelectedRow();

@@ -7,8 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -18,6 +16,9 @@ import java.util.ArrayList;
  * Description: random word panel
  */
 public class RandomWord {
+    /**
+     * attributes
+     */
     private JPanel randomWordPanel;
     private JLabel header;
     private JLabel slagLable;
@@ -27,8 +28,14 @@ public class RandomWord {
     private JButton nextBtn;
     private ArrayList<String> result;
     private RandomNumber randomNumber;
+    private SlangWord slangWord;
 
-    public RandomWord(){
+    /**
+     * constructor with parameter
+     * @param slangWord SlangWord
+     */
+    public RandomWord(SlangWord slangWord){
+        this.slangWord = slangWord;
         randomWordPanel = new JPanel();
         header = new JLabel("ON THIS DAY SLANG WORD", SwingConstants.CENTER);
         slagLable = new JLabel();
@@ -39,8 +46,12 @@ public class RandomWord {
         result = new ArrayList<>();
         randomNumber = new RandomNumber();
     }
-    public JPanel setUPPanel(SlangWord slangWord){
 
+    /**
+     * set up panel
+     * @return JPanel
+     */
+    public JPanel setUPPanel(){
         randomWordPanel.setLayout(new BorderLayout());
         header.setFont(header.getFont().deriveFont (40.0f));
         header.setForeground(Color.blue);

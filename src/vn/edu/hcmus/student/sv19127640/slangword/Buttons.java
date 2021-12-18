@@ -8,7 +8,7 @@ import java.awt.*;
  * vn.edu.hcmus.student.sv19127640.slangword
  * Created by ADMIN
  * Date 12/15/2021 - 8:58 PM
- * Description: ...
+ * Description: buttons class
  */
 public class Buttons extends JPanel {
     // attribute
@@ -75,38 +75,66 @@ public class Buttons extends JPanel {
         add(buttonPanel);
     }
 
+    /**
+     * getter add button
+     * @return JButton
+     */
     public JButton getAddButton() {
         return addButton;
     }
-
+    /**
+     * getter search button
+     * @return JButton
+     */
     public JButton getSearchButton() {
         return searchButton;
     }
-
+    /**
+     * getter quiz button 1
+     * @return JButton
+     */
     public JButton getQuizButton1() {
         return quizButton1;
     }
-
+    /**
+     * getter quiz button 2
+     * @return JButton
+     */
     public JButton getQuizButton2() {
         return quizButton2;
     }
-
+    /**
+     * getter info button
+     * @return JButton
+     */
     public JButton getMyInfoButton() {
         return myInfoButton;
     }
-
+    /**
+     * getter reset button
+     * @return JButton
+     */
     public JButton getResetButton() {
         return resetButton;
     }
-
+    /**
+     * getter history button
+     * @return JButton
+     */
     public JButton getHistoryButton() {
         return historyButton;
     }
-
+    /**
+     * getter random word button
+     * @return JButton
+     */
     public JButton getRandomWordButton() {
         return randomWordButton;
     }
-
+    /**
+     * getter exit button
+     * @return JButton
+     */
     public JButton getExitBtn() {
         return exitBtn;
     }
