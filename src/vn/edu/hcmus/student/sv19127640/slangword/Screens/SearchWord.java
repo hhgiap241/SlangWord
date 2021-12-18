@@ -3,6 +3,8 @@ package vn.edu.hcmus.student.sv19127640.slangword.Screens;
 import vn.edu.hcmus.student.sv19127640.slangword.SlangWord;
 
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,7 +19,7 @@ import java.util.Vector;
  * Date 12/15/2021 - 8:50 PM
  * Description: ...
  */
-public class SearchWord extends MouseAdapter implements ActionListener{
+public class SearchWord extends MouseAdapter implements ActionListener, TableModelListener {
     // attribute
     private JPanel searchPanel;
     private JPanel findPanel;
@@ -103,6 +105,7 @@ public class SearchWord extends MouseAdapter implements ActionListener{
         String[] columns = {"NO.", "Slang Word", "Meaning"};
         model.setColumnIdentifiers(columns);
         table.setModel(model);
+        table.getModel().addTableModelListener(this);
         table.getColumnModel().getColumn(0).setPreferredWidth(100);
         table.getColumnModel().getColumn(1).setPreferredWidth(400);
         table.getColumnModel().getColumn(2).setPreferredWidth(500);
@@ -139,6 +142,7 @@ public class SearchWord extends MouseAdapter implements ActionListener{
                     for (int i = 0; i < result.length; i++){
                         model.addRow(result[i]);
                     }
+
                 }else{
                     JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Can't find anything!!!");
                 }
@@ -148,6 +152,7 @@ public class SearchWord extends MouseAdapter implements ActionListener{
             slangWord.deleteASlangWord(result[rowIndex][1], result[rowIndex][2]);
             model.removeRow(rowIndex);
             slangWord.saveToFile();
+            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Delete complete!!!");
         }
     }
 
@@ -162,5 +167,19 @@ public class SearchWord extends MouseAdapter implements ActionListener{
         Point point = event.getPoint();
         int currentRow = table.rowAtPoint(point);
         table.setRowSelectionInterval(currentRow, currentRow);
+    }
+
+    @Override
+    public void tableChanged(TableModelEvent e) {
+        int rowIndex = table.getSelectedRow();
+        int colIndex = table.getSelectedColumn();
+        if (rowIndex == -1)
+            return;
+        if (colIndex == 2){
+            slangWord.editSlangWord((String)model.getValueAt(rowIndex, 1), result[rowIndex][2], (String)model.getValueAt(rowIndex, 2));
+            slangWord.saveToFile();
+            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Update complete!!!");
+            table.getSelectionModel().clearSelection();
+        }
     }
 }

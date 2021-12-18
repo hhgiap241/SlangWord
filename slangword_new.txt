@@ -5068,6 +5068,7 @@ LUL`Lame Uncomfortable Laugh
 MISSION`Arduous or boring task
 SNAG`Sausage|Sensitive New Age Guy
 NOSA`No Sir, just kidding
+LUV`Love
 SNAP`surprise|dismay
 LUX`Luxury
 AINT`are not|Am not|is not
@@ -5772,7 +5773,7 @@ CHUNDER`Be sick|vomit
 JEAL`Jealous
 DCOI`Don't Count On It
 KYFC`Keep Your Fingers Crossed
->.<`Frustrated|upset|angry|in pain
+>.<`Frustrated get buon|xin chao tam biet
 >.>`Suspicious|wary
 CLUBHEAD`Person who goes to clubs a lot
 NO1`No-One

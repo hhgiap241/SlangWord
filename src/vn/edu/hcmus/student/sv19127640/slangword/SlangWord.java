@@ -231,7 +231,8 @@ public class SlangWord {
         for (String value: values){
             String[] token = value.toLowerCase().split("\\W");
             for (int i = 0; i < token.length; i++)
-                this.reverseDictionary.get(token[i]).remove(slag);
+                if (!token[i].equals(""))
+                    this.reverseDictionary.get(token[i]).remove(slag);
         }
         values.clear();
         for (int i = 0; i < partOfWords.length; i++){
@@ -281,13 +282,14 @@ public class SlangWord {
     public void editSlangWord(String slag, String oldMeaning, String newMeaning){
         String [] old_token = oldMeaning.toLowerCase().split("\\W");
         for (int i = 0; i < old_token.length; i++){
-            this.reverseDictionary.get(old_token[i]).remove(slag);
+            if (!old_token[i].equals(""))
+                this.reverseDictionary.get(old_token[i]).remove(slag);
         }
         this.dictionary.get(slag).remove(oldMeaning);
         this.dictionary.get(slag).add(newMeaning);
         String [] new_token = newMeaning.toLowerCase().split("\\W");
         this.addTokenToReverseDictionary(new_token, slag);
-        this.saveToFile();
+//        this.saveToFile();
     }
 
     /**
@@ -298,7 +300,8 @@ public class SlangWord {
     public void deleteASlangWord(String slag, String meaning){
         String [] old_token = meaning.toLowerCase().split("\\W");
         for (int i = 0; i < old_token.length; i++){
-            this.reverseDictionary.get(old_token[i]).remove(slag);
+            if (!old_token[i].equals(""))
+                this.reverseDictionary.get(old_token[i]).remove(slag);
         }
         HashSet<String> meanings = this.dictionary.get(slag);
         if (meanings.size() == 1) // if the slag has only one meaning => delete it
