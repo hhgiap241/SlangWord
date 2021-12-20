@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * vn.edu.hcmus.student.sv19127640.slangword.Screens
@@ -29,6 +30,8 @@ public class RandomWord {
     private ArrayList<String> result;
     private RandomNumber randomNumber;
     private SlangWord slangWord;
+    private int randNum;
+    private int numberOfSlagMeanings;
 
     /**
      * constructor with parameter
@@ -65,15 +68,15 @@ public class RandomWord {
 
         gbc.gridy = 0;
         gbc.gridx = 0;
-        int randNum = randomNumber.random(0, slangWord.getSize() - 1);
+        randNum = randomNumber.random(0, slangWord.getSize() - 1);
         result = slangWord.randomSlangWord(randNum);
         System.out.println(result);
         JPanel titlePanel = new JPanel(new FlowLayout());
         title.setText("TODAY SLANG WORD IS ");
         title.setFont(title.getFont().deriveFont (35.0f));
 
-        int slagWordIndex = result.size() - 1;
-        slagLable.setText(result.get(slagWordIndex).toUpperCase());
+        numberOfSlagMeanings = result.size() - 1;
+        slagLable.setText(result.get(numberOfSlagMeanings).toUpperCase());
         slagLable.setFont(slagLable.getFont().deriveFont (35.0f));
         slagLable.setForeground(Color.red);
 
@@ -82,14 +85,26 @@ public class RandomWord {
 
         smallPanel.add(titlePanel, gbc);
         gbc.gridy = 1;
-        description.setText("THIS SLANG WORD HAS " + slagWordIndex + " MEANINGS:");
+        description.setText("THIS SLANG WORD HAS " + numberOfSlagMeanings + " MEANINGS:");
         description.setFont(description.getFont().deriveFont (28.0f));
         smallPanel.add(description, gbc);
         gbc.gridy = 2;
         slagMean.setText(slangWord.concateMeanings(result));
         slagMean.setFont(slagMean.getFont().deriveFont (25.0f));
         smallPanel.add(slagMean, gbc);
-
+        // auto change slang word after 5 minutes = 300k ms
+        int delay = 300000; //milliseconds
+        ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                randNum = randomNumber.random(0, slangWord.getSize() - 1);
+                result = slangWord.randomSlangWord(randNum);
+                numberOfSlagMeanings = result.size() - 1;
+                slagLable.setText(result.get(numberOfSlagMeanings).toUpperCase());
+                description.setText("THIS SLANG WORD HAS " + numberOfSlagMeanings + " MEANINGS:");
+                slagMean.setText(slangWord.concateMeanings(result));
+            }
+        };
+        new Timer(delay, taskPerformer).start();
 
         nextBtn.setText("Next");
         JPanel buttonPanel = new JPanel();
@@ -107,12 +122,12 @@ public class RandomWord {
         nextBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int randNum = randomNumber.random(0, slangWord.getSize() - 1);
+                randNum = randomNumber.random(0, slangWord.getSize() - 1);
                 result = slangWord.randomSlangWord(randNum);
                 System.out.println(result);
-                int slagWordIndex = result.size() - 1;
-                description.setText("THIS SLANG WORD HAS " + slagWordIndex + " MEANINGS:");
-                slagLable.setText(result.get(slagWordIndex));
+                numberOfSlagMeanings = result.size() - 1;
+                description.setText("THIS SLANG WORD HAS " + numberOfSlagMeanings + " MEANINGS:");
+                slagLable.setText(result.get(numberOfSlagMeanings).toUpperCase());
                 slagMean.setText(slangWord.concateMeanings(result));
             }
         });

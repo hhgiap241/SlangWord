@@ -1345,7 +1345,6 @@ BL`Bad Luck|Bottom Line
 BM`Black Man|Bowel Movement|BMW
 BUFF`Good Looking
 BO`Body Odour
-8===D`A Penis
 C1`Roger that|Affirmative
 DHS`Department of Homeland Security|Department of Health Services
 BQ`Be Quiet
@@ -4694,7 +4693,7 @@ DUTTY`Dirty
 PLANKING`Lying face down in an unusual place
 BUMMER`Bad Luck
 JHEEZE`OMG|wow
-PEN15`Penis
+PEN15`Peniss
 SMEG`All purpose swear word
 STELLA`Flirty girl
 KWL`Cool
