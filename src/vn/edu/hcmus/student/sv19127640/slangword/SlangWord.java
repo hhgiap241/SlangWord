@@ -27,6 +27,7 @@ public class SlangWord {
     public SlangWord(){
         this.dictionary = new HashMap<>();
         this.reverseDictionary = new HashMap<>();
+        /* ======================= Tham khảo ======================= */
         File f = new File(FILE_NEW_SLANGWORD_1);
         if(f.exists() && !f.isDirectory()) {
             // if exits new file => read new file to hashmap
@@ -35,6 +36,7 @@ public class SlangWord {
             // if not exits => read the original file
             this.readFile(FILE_ORIGINAL_SLANGWORD);
         }
+        /* ======================= Tham khảo ======================= */
     }
 
     /**

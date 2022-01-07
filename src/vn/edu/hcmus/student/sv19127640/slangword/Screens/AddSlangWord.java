@@ -115,7 +115,6 @@ public class AddSlangWord implements ActionListener {
                     slangWord.addNewSlangWord(slag, meanings);
                 }else{
                     // exist => check add overwrite or duplicate
-                    // reference at: https://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
                     Object[] options = { "Add duplicate", "Add overwrite" };
                     int select = JOptionPane.showOptionDialog(JOptionPane.getRootFrame(), "This slag word is already exist! Please choose your option", "Warning",
                             JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
