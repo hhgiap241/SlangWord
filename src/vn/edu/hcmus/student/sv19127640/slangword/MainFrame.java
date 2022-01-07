@@ -99,7 +99,6 @@ public class MainFrame extends JPanel{
                 if (select == 0) // if yes
                 {
                     slangWord.reset();
-                    slangWord.saveToFile();
                     JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Reset dictionary successfully!!!");
                 }
             }

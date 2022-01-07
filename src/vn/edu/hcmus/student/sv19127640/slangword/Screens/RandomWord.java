@@ -26,7 +26,7 @@ public class RandomWord {
     private JLabel slagMean;
     private JLabel title;
     private JLabel description;
-    private JButton nextBtn;
+//    private JButton nextBtn;
     private ArrayList<String> result;
     private RandomNumber randomNumber;
     private SlangWord slangWord;
@@ -45,7 +45,7 @@ public class RandomWord {
         slagMean = new JLabel();
         title = new JLabel();
         description = new JLabel();
-        nextBtn = new JButton();
+//        nextBtn = new JButton();
         result = new ArrayList<>();
         randomNumber = new RandomNumber();
     }
@@ -92,8 +92,8 @@ public class RandomWord {
         slagMean.setText(slangWord.concateMeanings(result));
         slagMean.setFont(slagMean.getFont().deriveFont (25.0f));
         smallPanel.add(slagMean, gbc);
-        // auto change slang word after 5 minutes = 300k ms
-        int delay = 300000; //milliseconds
+        // auto change slang word after 3 minutes = 180.000 ms
+        int delay = 180000; //milliseconds
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 randNum = randomNumber.random(0, slangWord.getSize() - 1);
@@ -106,31 +106,31 @@ public class RandomWord {
         };
         new Timer(delay, taskPerformer).start();
 
-        nextBtn.setText("Next");
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.PAGE_AXIS));
-        JPanel footerContent = new JPanel();
-        footerContent.setLayout(new BoxLayout(footerContent, BoxLayout.X_AXIS));
-        footerContent.add(nextBtn);
-        buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        buttonPanel.add(footerContent);
+//        nextBtn.setText("Next");
+//        JPanel buttonPanel = new JPanel();
+//        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.PAGE_AXIS));
+//        JPanel footerContent = new JPanel();
+//        footerContent.setLayout(new BoxLayout(footerContent, BoxLayout.X_AXIS));
+//        footerContent.add(nextBtn);
+//        buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+//        buttonPanel.add(footerContent);
 
         randomWordPanel.add(header, BorderLayout.PAGE_START);
         randomWordPanel.add(smallPanel, BorderLayout.CENTER);
-        randomWordPanel.add(buttonPanel, BorderLayout.PAGE_END);
+//        randomWordPanel.add(buttonPanel, BorderLayout.PAGE_END);
 
-        nextBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                randNum = randomNumber.random(0, slangWord.getSize() - 1);
-                result = slangWord.randomSlangWord(randNum);
-                System.out.println(result);
-                numberOfSlagMeanings = result.size() - 1;
-                description.setText("THIS SLANG WORD HAS " + numberOfSlagMeanings + " MEANINGS:");
-                slagLable.setText(result.get(numberOfSlagMeanings).toUpperCase());
-                slagMean.setText(slangWord.concateMeanings(result));
-            }
-        });
+//        nextBtn.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                randNum = randomNumber.random(0, slangWord.getSize() - 1);
+//                result = slangWord.randomSlangWord(randNum);
+//                System.out.println(result);
+//                numberOfSlagMeanings = result.size() - 1;
+//                description.setText("THIS SLANG WORD HAS " + numberOfSlagMeanings + " MEANINGS:");
+//                slagLable.setText(result.get(numberOfSlagMeanings).toUpperCase());
+//                slagMean.setText(slangWord.concateMeanings(result));
+//            }
+//        });
         return randomWordPanel;
     }
 }

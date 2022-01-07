@@ -16,7 +16,8 @@ public class SlangWord {
      */
     private HashMap<String, HashSet<String>> dictionary;
     private HashMap<String, HashSet<String>> reverseDictionary;
-    private String FILE_NEW_SLANGWORD = "slangword_new.txt";
+    private String FILE_NEW_SLANGWORD_1 = "map_1.dat";
+    private String FILE_NEW_SLANGWORD_2 = "map_2.dat";
     private String FILE_ORIGINAL_SLANGWORD = "slang.txt";
     private String FILE_HISTORY = "history.txt";
 
@@ -26,10 +27,10 @@ public class SlangWord {
     public SlangWord(){
         this.dictionary = new HashMap<>();
         this.reverseDictionary = new HashMap<>();
-        File f = new File(FILE_NEW_SLANGWORD);
+        File f = new File(FILE_NEW_SLANGWORD_1);
         if(f.exists() && !f.isDirectory()) {
             // if exits new file => read new file to hashmap
-            this.readFile(FILE_NEW_SLANGWORD);
+            readSerializeFile();
         }else{
             // if not exits => read the original file
             this.readFile(FILE_ORIGINAL_SLANGWORD);
@@ -68,7 +69,39 @@ public class SlangWord {
             }
         }
     }
+    public void readSerializeFile(){
+        try {
+            ObjectInputStream objectInputStream_1 = new ObjectInputStream(new FileInputStream(FILE_NEW_SLANGWORD_1));
+            ObjectInputStream objectInputStream_2 = new ObjectInputStream(new FileInputStream(FILE_NEW_SLANGWORD_2));
+            dictionary = (HashMap)objectInputStream_1.readObject();
+            reverseDictionary = (HashMap)objectInputStream_2.readObject();
+            objectInputStream_1.close();
+            objectInputStream_2.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
+
+    }
+    public void saveSerializeFile(){
+        try {
+            ObjectOutputStream objectOutputStream_1 = new ObjectOutputStream(new FileOutputStream(FILE_NEW_SLANGWORD_1));
+            objectOutputStream_1.writeObject(dictionary);
+            ObjectOutputStream objectOutputStream_2 = new ObjectOutputStream(new FileOutputStream(FILE_NEW_SLANGWORD_2));
+            objectOutputStream_2.writeObject(reverseDictionary);
+            objectOutputStream_1.close();
+            objectOutputStream_2.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+    }
     /**
      * function to read from file to HashMap
      * @param filename String
@@ -112,6 +145,7 @@ public class SlangWord {
             meanings[index][2] = value;
             index++;
         }
+        saveToHistory(meanings);
         return meanings;
     }
     /**
@@ -205,31 +239,31 @@ public class SlangWord {
         }
         return values;
     }
-
-    /**
-     * save dictionary to file
-     */
-    public void saveToFile(){
-        try {
-            FileWriter fileWriter = new FileWriter(FILE_NEW_SLANGWORD);
-            fileWriter.write("Slag`Meaning" + "\n");
-            for (Map.Entry<String, HashSet<String>> entry : this.dictionary.entrySet()) {
-                String line = entry.getKey() + "`";
-                HashSet<String> meanings = entry.getValue();
-                Iterator iterator = meanings.iterator();
-                while (iterator.hasNext()){
-                    line += iterator.next();
-                    if (iterator.hasNext())
-                        line += "|";
-                }
-                fileWriter.write(line + "\n");
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
+//
+//    /**
+//     * save dictionary to file
+//     */
+//    public void saveToFile(){
+//        try {
+//            FileWriter fileWriter = new FileWriter(FILE_NEW_SLANGWORD);
+//            fileWriter.write("Slag`Meaning" + "\n");
+//            for (Map.Entry<String, HashSet<String>> entry : this.dictionary.entrySet()) {
+//                String line = entry.getKey() + "`";
+//                HashSet<String> meanings = entry.getValue();
+//                Iterator iterator = meanings.iterator();
+//                while (iterator.hasNext()){
+//                    line += iterator.next();
+//                    if (iterator.hasNext())
+//                        line += "|";
+//                }
+//                fileWriter.write(line + "\n");
+//            }
+//            fileWriter.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
     /**
      * check if the slag is exist or not
@@ -249,7 +283,7 @@ public class SlangWord {
     public void addNewSlangWord(String slag, String meanings){
         String line = slag + "`" + meanings;
         this.addLineToDictionary(line);
-        this.saveToFile();
+//        this.saveToFile();
     }
 
     /**
@@ -287,7 +321,7 @@ public class SlangWord {
             this.addTokenToReverseDictionary(token, slag);
         }
         this.dictionary.put(slag, values);
-        this.saveToFile();
+//        this.saveToFile();
     }
 
     /**
@@ -305,7 +339,7 @@ public class SlangWord {
             this.addTokenToReverseDictionary(token, slag);
         }
         this.dictionary.put(slag, values);
-        this.saveToFile();
+//        this.saveToFile();
     }
 
     /**
@@ -351,8 +385,10 @@ public class SlangWord {
      */
     public void reset(){
         this.dictionary.clear();
+        this.reverseDictionary.clear();
         this.readFile(FILE_ORIGINAL_SLANGWORD);
-        this.saveToFile();
+        this.saveSerializeFile();
+//        this.saveToFile();
     }
 
     /**
@@ -452,13 +488,7 @@ public class SlangWord {
     public HashMap<String, HashSet<String>> getDictionary() {
         return dictionary;
     }
-    /**
-     * get the name new slangword.txt
-     * @return String
-     */
-    public String getFILE_NEW_SLANGWORD() {
-        return FILE_NEW_SLANGWORD;
-    }
+
     /**
      * get the name of original slangword.txt
      * @return String

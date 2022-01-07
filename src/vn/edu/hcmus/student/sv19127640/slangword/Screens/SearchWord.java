@@ -148,6 +148,7 @@ public class SearchWord extends MouseAdapter implements ActionListener, TableMod
                 model.setRowCount(0);
                 if(radioButton1.isSelected()){
                     result = slangWord.findBySlangWord(input);
+
                 }else if(radioButton2.isSelected()){
                     result = slangWord.findByDefinition(input);
                 }
@@ -157,7 +158,6 @@ public class SearchWord extends MouseAdapter implements ActionListener, TableMod
                     for (int i = 0; i < result.length; i++){
                         model.addRow(result[i]);
                     }
-                    slangWord.saveToHistory(result);
                 }
             }
         }else if(e.getSource() == menuItemDelete){
@@ -169,7 +169,8 @@ public class SearchWord extends MouseAdapter implements ActionListener, TableMod
             {
                 slangWord.deleteASlangWord(result[rowIndex][1], result[rowIndex][2]);
                 model.removeRow(rowIndex);
-                slangWord.saveToFile();
+//                slangWord.saveToFile();
+                slangWord.saveSerializeFile();
                 JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Delete complete!!!");
             }
         }
@@ -200,7 +201,8 @@ public class SearchWord extends MouseAdapter implements ActionListener, TableMod
             return;
         if (colIndex == 2){
             slangWord.editSlangWord((String)model.getValueAt(rowIndex, 1), result[rowIndex][2], (String)model.getValueAt(rowIndex, 2));
-            slangWord.saveToFile();
+//            slangWord.saveToFile();
+            slangWord.saveSerializeFile();
             JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Update complete!!!");
 
         }

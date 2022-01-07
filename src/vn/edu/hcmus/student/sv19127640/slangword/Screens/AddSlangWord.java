@@ -125,7 +125,8 @@ public class AddSlangWord implements ActionListener {
                         slangWord.addOverwriteSlangWord(slag, meanings);
                     }
                 }
-                slangWord.saveToFile();
+//                slangWord.saveToFile();
+                slangWord.saveSerializeFile();
                 JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Add new word successfully!!!");
                 slagText.setText("");
                 meaningsText.setText("");
